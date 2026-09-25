@@ -1,0 +1,33 @@
+---
+layout: post
+title: "BugKu CTF Writeup-linux"
+date: 2026-09-25
+categories: CTF
+tags: [BugKu]
+---
+
+## 题目类型
+
+MISC
+
+## 解题思路
+
+在Windows环境使用Git Bash模拟Linux命令行环境，逐层解压嵌套压缩包得到二进制文件。利用 cat 读取二进制文件内容，结合 grep -a ，将二进制文件强制当作文本处理，过滤关键词 key ，提取flag。
+说明：Git Bash默认不包含 strings 工具，因此改用 cat + grep -a 的方案完成文件字符串检索。
+
+## 解题过程
+
+1. 将题目附件 linux.zip 放置在目录，打开Git Bash，执行 cd /d/目录 切换工作目录。使用 ls 查看目录文件。
+2. 执行 cd linux 进入解压后的linux文件夹， ls 查看到压缩包 1.tar.gz 。
+3. 使用 tar -zxvf 1.tar.gz 解压tar.gz压缩包，解压后得到 test 文件夹。
+-  -z ：处理gz压缩； -x ：解压； -v ：输出解压详情； -f ：指定操作文件。
+4. 执行 cd test 进入test目录， ls 查看得到二进制文件 flag 。
+5. 执行命令： cat flag | grep -a key 。
+-  cat flag ：读取flag文件全部内容。
+-  | 管道符：将前面命令输出作为后面命令输入。
+-  grep -a key ： -a 参数强制把二进制文件当作文本，检索包含 key 的字符串。
+6. 终端输出flag。
+
+## 笔记
+
+本题练习Linux基础文件操作命令。在二进制文件中查找明文字符串是CTF基础手段。当缺少 strings 工具时，可以使用 cat + grep -a 替代完成检索。Git Bash可以在Windows系统模拟bash终端，适合入门练习Linux指令
