@@ -1,3 +1,4 @@
-title: My Blog
-theme: minima
+title: My blog
+description: 记录技术与安全
+theme: jekyll-theme-hacker
 timezone: Asia/Shanghai
