@@ -9,7 +9,6 @@ title: 首页
 > 当前目录：/home/hacker/posts
 
 <pre style="color: #00ff00; background: #000; padding: 15px; border: 1px solid #00ff00; border-radius: 5px; line-height: 1.5;">
-> ls ./posts
 {% for post in site.posts %}
   <a href=" " style="color: #00ff00; text-decoration: none;">{{ post.title }}</a >
 {% endfor %}
