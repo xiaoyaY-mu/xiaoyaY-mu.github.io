@@ -1,0 +1,32 @@
+---
+layout: post
+title: "BugKu CTF Writeup-眼见非实"
+date: 2026-09-27
+categories: CTF
+tags: [BugKu]
+---
+
+## 题目类型
+
+MISC
+
+## 解题思路
+
+题目名字“眼见非实”就是提示：文件后缀名是骗人的，不能看图标判断真实文件类型
+原理
+docx本质上就是zip压缩包，把word文档里面文字、图片全部打包进zip。
+本题下载得到docx文件，双击打开会报错。因为它虽然后缀写着 .docx ，本质就是zip压缩包，文件头是 50 4B （PK），是zip标志性开头。
+
+## 解题过程
+
+1. 下载附件，得到 眼见非实.docx 
+2. 修改文件后缀名：把 .docx 改成 .zip 
+3. 解压这个zip压缩包，会得到一堆文件夹
+4. 进入 word 文件夹，找到 document.xml 文件
+5. 右键用记事本打开 document.xml ，按 Ctrl+F 搜索 flag{ ，直接找到flag
+
+## 笔记
+
+1. 文件头识别： 50 4B （PK开头）= zip压缩包，不管后缀写的是什么，真实类型是zip。
+2. docx文件底层就是zip，里面文字内容保存在 word/document.xml 。
+3. Misc经典套路：后缀欺骗！看到文件打不开，优先查看文件头判断真实类型。
